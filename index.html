@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dragalia lost cursor mimic</title>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIj48ZyBzdHlsZT0iZGlzcGxheTppbmxpbmUiPjxwYXRoIGQ9Im02NCAzMy45NDcyNjYgNS4zMzk4NDQgMjcuMTc5Njg3YTE1IDE1IDAgMCAwLTkuMjI2NTYzIDE1LjY5NTMxM0wyNC4yODkwNjIgODguNTg3ODkxbDM2LjkwODIwNC03LjcyNDYxYTE1IDE1IDAgMCAwIDE1LjgzNzg5IDguOTgyNDIyTDg2IDExNi4wNTI3M2wtNS4zMzc4OTEtMjcuMTY3OTY0YTE1IDE1IDAgMCAwIDkuMjI0NjEtMTUuNzA3MDMybDM1LjgyNDIyMS0xMS43NjU2MjUtMzYuOTA4MjA2IDcuNzI0NjFhMTUgMTUgMCAwIDAtMTUuODM3ODktOC45ODI0MjJ6bTExLjY3OTY4OCAyOC4wNzAzMTJhMTMgMTMgMCAwIDEgMTEuMTEzMjgxIDcuNTM5MDYzbC01LjE5NTMxMyAxLjA4Nzg5LTUuODI4MTI1IDMuMjM0Mzc1LjE3MzgyOC01LjAxMzY3Mi0yLjMyMjI2NS02Ljc5MTAxNWExMyAxMyAwIDAgMSAyLjA1ODU5NC0uMDU2NjR6bS01Ljk0NzI2NiAxLjA5OTYxIDEuMzgyODEyIDcuMDQxMDE1IDIuNjU4MjA0IDQuMjU1ODU5LTYuNjY0MDYzLjExMTMyOS01LjA0Mjk2OSAxLjY1NjI1YTEzIDEzIDAgMCAxIDcuNjY2MDE2LTEzLjA2NDQ1M3ptMTguMjEwOTM3IDEwLjY5NzI2NWExMyAxMyAwIDAgMS03LjY3MzgyOCAxMy4wNzAzMTNsLTEuMzg0NzY1LTcuMDQyOTY5LTIuNjU4MjA0LTQuMjU1ODU5IDYuNjY0MDYzLS4xMTEzMjl6bS0xMy43MTI4OSAyLjMwNjY0MS0uMTczODI4IDUuMDEzNjcyIDIuMzIyMjY1IDYuNzkxMDE1YTEzIDEzIDAgMCAxLTEzLjE3MTg3NS03LjQ4MjQyMmw1LjE5NTMxMy0xLjA4Nzg5eiIgc3R5bGU9ImRpc3BsYXk6aW5saW5lO2ZpbGw6I2Y1ZmFmZjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6I2ViZDI0YjtzdHJva2Utd2lkdGg6MTtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6MTA7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0cm9rZS1vcGFjaXR5OjE7cGFpbnQtb3JkZXI6c3Ryb2tlIGZpbGwgbWFya2VycyIvPjwvZz48L3N2Zz4=">
+
+    <!-- stylesheets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=RocknRoll+One&family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+
+    <style id="css">
+:root {
+    --cursor_sizeClick: 160px; /* size of regular click */
+    --cursor_sizeClickBig: 240px; /* size of big click */
+    --cursor_sizeDust: 12px; /* size of dust left behind */
+}
+
+#asset_cursor {
+    pointer-events: none;
+    z-index: 99;
+}
+
+.cursor_dragtrail,
+.cursor_dragdust,
+#cursor_drag,
+#cursor_click {
+    position: fixed;
+    z-index: 99;
+}
+
+#cursor_click {
+    background-size: cover;
+    animation-duration: 200ms;
+}
+
+#cursor_click.ed {
+    height: var(--cursor_sizeClick);
+    width: var(--cursor_sizeClick);
+    animation-name: cursor_click;
+}
+
+#cursor_click.edbig {
+    height: var(--cursor_sizeClickBig);
+    width: var(--cursor_sizeClickBig);
+    animation-name: cursor_clickbig;
+}
+
+.cursor_dragtrail,
+.cursor_dragdust {
+    background-color: #f3f3fc;
+    border-radius: var(--cursor_sizeDust);
+    animation-duration: 500ms;
+    animation-fill-mode: forwards;
+}
+
+.cursor_dragtrail {
+    animation-name: cursor_trail;
+}
+
+.cursor_dragdust {
+    animation-name: cursor_sprinkle;
+}
+
+/* regular click */
+@keyframes cursor_click {
+    0% {
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIj48ZyBzdHlsZT0iZGlzcGxheTppbmxpbmUiPjxjaXJjbGUgY3g9Ijc1IiBjeT0iNzUiIHI9IjIuNSIgc3R5bGU9ImRpc3BsYXk6aW5saW5lO29wYWNpdHk6MTtmaWxsOiNmNWZhZmY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiNlYmQyNGI7c3Ryb2tlLXdpZHRoOjE7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjEwO3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxO3BhaW50LW9yZGVyOnN0cm9rZSBmaWxsIG1hcmtlcnMiLz48L2c+PC9zdmc+);
+    }
+    20% {
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIj48ZyBzdHlsZT0iZGlzcGxheTppbmxpbmUiPjxwYXRoIGQ9Im03NC45OTk2NDYgNDcuNDk5Mzg3LTIuMjkyNDAyIDI1LjIwOTEzMS0yNS4yMDc4NTcgMi4yOTE4MzYgMjUuMjA5MTMxIDIuMjkyNDAyIDIuMjkxODM2IDI1LjIwNzg1NCAyLjI5MjQwMi0yNS4yMDkxMjggMjUuMjA3ODU0LTIuMjkxODM2LTI1LjIwOTEyOC0yLjI5MjQwMnoiIHN0eWxlPSJkaXNwbGF5OmlubGluZTtmaWxsOiNmNWZhZmY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiNlYmQyNGI7c3Ryb2tlLXdpZHRoOjE7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjEwO3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxO3BhaW50LW9yZGVyOnN0cm9rZSBmaWxsIG1hcmtlcnMiIHRyYW5zZm9ybT0icm90YXRlKDMwIDc1IDc1KSIvPjwvZz48L3N2Zz4=);
+    }
+    40% {
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIj48ZyBzdHlsZT0iZGlzcGxheTppbmxpbmUiPjxwYXRoIGQ9Im03NSAzNy41LTEuNjc1NzgxIDI1LjExOTE0MWExMi41IDEyLjUgMCAwIDAtMTAuNjgxNjQxIDEwLjUzMTI1TDI3LjUgNzVsMzUuMTQyNTc4IDEuODQ5NjA5YTEyLjUgMTIuNSAwIDAgMCAxMC42ODE2NDEgMTAuNTMxMjVMNzUgMTEyLjVsMS42NzU3ODEtMjUuMTE5MTQxYTEyLjUgMTIuNSAwIDAgMCAxMC42ODE2NDEtMTAuNTMxMjVMMTIyLjUgNzVsLTM1LjEzNjcxOS0xLjg0OTYwOWExMi41IDEyLjUgMCAwIDAtMTAuNjg5NDUzLTEwLjUzNTE1N1ptMS44Nzg5MDYgMjguMTkxNDA2YTkuNSA5LjUgMCAwIDEgNy40MDIzNDQgNy4yOTY4NzVsLTYuOTM5NDUzLS4zNjUyMzR6bS0zLjc1OTc2NS4wMTk1My0uNDYwOTM4IDYuOTEyMTA5LTYuOTE0MDYyLjM2MzI4MWE5LjUgOS41IDAgMCAxIDcuMzc1LTcuMjc1Mzl6bS03LjM3NSAxMS4zMDI3MzQgNi45MTQwNjIuMzYzMjgxLjQ2MDkzOCA2LjkxMjEwOWE5LjUgOS41IDAgMCAxLTcuMzc1LTcuMjc1Mzl6bTE4LjUxMTcxOCAwYTkuNSA5LjUgMCAwIDEtNy4zNzUgNy4yNzUzOWwuNDYwOTM4LTYuOTEyMTA5eiIgc3R5bGU9ImRpc3BsYXk6aW5saW5lO2ZpbGw6I2Y1ZmFmZjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6I2ViZDI0YjtzdHJva2Utd2lkdGg6MTtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6MTA7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0cm9rZS1vcGFjaXR5OjE7cGFpbnQtb3JkZXI6c3Ryb2tlIGZpbGwgbWFya2VycyIvPjwvZz48L3N2Zz4=);
+    }
+    60% {
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIj48ZyBzdHlsZT0iZGlzcGxheTppbmxpbmUiPjxwYXRoIGQ9Im02NCAzMy45NDcyNjYgNS4zMzk4NDQgMjcuMTc5Njg3YTE1IDE1IDAgMCAwLTkuMjI2NTYzIDE1LjY5NTMxM0wyNC4yODkwNjIgODguNTg3ODkxbDM2LjkwODIwNC03LjcyNDYxYTE1IDE1IDAgMCAwIDE1LjgzNzg5IDguOTgyNDIyTDg2IDExNi4wNTI3M2wtNS4zMzc4OTEtMjcuMTY3OTY0YTE1IDE1IDAgMCAwIDkuMjI0NjEtMTUuNzA3MDMybDM1LjgyNDIyMS0xMS43NjU2MjUtMzYuOTA4MjA2IDcuNzI0NjFhMTUgMTUgMCAwIDAtMTUuODM3ODktOC45ODI0MjJ6bTExLjY3OTY4OCAyOC4wNzAzMTJhMTMgMTMgMCAwIDEgMTEuMTEzMjgxIDcuNTM5MDYzbC01LjE5NTMxMyAxLjA4Nzg5LTUuODI4MTI1IDMuMjM0Mzc1LjE3MzgyOC01LjAxMzY3Mi0yLjMyMjI2NS02Ljc5MTAxNWExMyAxMyAwIDAgMSAyLjA1ODU5NC0uMDU2NjR6bS01Ljk0NzI2NiAxLjA5OTYxIDEuMzgyODEyIDcuMDQxMDE1IDIuNjU4MjA0IDQuMjU1ODU5LTYuNjY0MDYzLjExMTMyOS01LjA0Mjk2OSAxLjY1NjI1YTEzIDEzIDAgMCAxIDcuNjY2MDE2LTEzLjA2NDQ1M3ptMTguMjEwOTM3IDEwLjY5NzI2NWExMyAxMyAwIDAgMS03LjY3MzgyOCAxMy4wNzAzMTNsLTEuMzg0NzY1LTcuMDQyOTY5LTIuNjU4MjA0LTQuMjU1ODU5IDYuNjY0MDYzLS4xMTEzMjl6bS0xMy43MTI4OSAyLjMwNjY0MS0uMTczODI4IDUuMDEzNjcyIDIuMzIyMjY1IDYuNzkxMDE1YTEzIDEzIDAgMCAxLTEzLjE3MTg3NS03LjQ4MjQyMmw1LjE5NTMxMy0xLjA4Nzg5eiIgc3R5bGU9ImRpc3BsYXk6aW5saW5lO2ZpbGw6I2Y1ZmFmZjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6I2ViZDI0YjtzdHJva2Utd2lkdGg6MTtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6MTA7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0cm9rZS1vcGFjaXR5OjE7cGFpbnQtb3JkZXI6c3Ryb2tlIGZpbGwgbWFya2VycyIvPjwvZz48L3N2Zz4=);
+    }
+    80% {
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIj48ZyBzdHlsZT0iZGlzcGxheTppbmxpbmUiPjxwYXRoIGQ9Im03NSAyNS0yLjUgMjUuODgyODEyIDEuMTg1NTQ3IDYuNjk1MzEyQTE3LjUgMTcuNSAwIDAgMCA1OS44NDM3NSA2Ni4yNWExNy41IDE3LjUgMCAwIDAtMi4zMDA3OCA4LjU4OTg0M0w0My41IDcyLjQ5OTk5OWwtMjcuNSAyLjVMNDMuNTAwMDAxIDc3LjVsMTQuMDM1MTU2LTIuMzM5ODQ0YTE3LjUgMTcuNSAwIDAgMCA4LjcxNDg0NCAxNC45OTYwOTQgMTcuNSAxNy41IDAgMCAwIDcuNDMzNTkzIDIuMjcxNDg0TDcyLjUgOTkuMTE3MTg3IDc1IDEyNWwyLjUtMjUuODgyODEzLTEuMTg1NTQ3LTYuNjk1MzEyYTE3LjUgMTcuNSAwIDAgMCAxMy44NDE3OTgtOC42NzE4NzYgMTcuNSAxNy41IDAgMCAwIDIuMzM3ODktOC41ODM5ODNMMTA2LjUgNzcuNDk5OTk5IDEzNCA3NWwtMjcuNS0yLjUtMTQuMDAzOTA3IDIuMzMzOTg1QTE3LjUgMTcuNSAwIDAgMCA4My43NSA1OS44NDM3NDlhMTcuNSAxNy41IDAgMCAwLTcuNDMzNTk0LTIuMjcxNDg0TDc3LjUgNTAuODgyODEzWm0tMS4xNDA2MjUgMzMuNTYyNUw3NSA2NWwxLjE0MDYyNi02LjQzNTU0OGExNi41IDE2LjUgMCAwIDEgNy4xMDkzNzUgMi4xNDY0ODVBMTYuNSAxNi41IDAgMCAxIDg5LjI4OTA2MyA4My4yNWExNi41IDE2LjUgMCAwIDEtMTMuMTQ4NDM4IDguMTg3NDk5TDc1IDg0Ljk5OTk5OWwtMS4xNDA2MjUgNi40MzU1NDhBMTYuNSAxNi41IDAgMCAxIDY2Ljc1IDg5LjI4OTA2MmExNi41IDE2LjUgMCAwIDEtNi4wMzkwNjItMjIuNTM5MDYzQTE2LjUgMTYuNSAwIDAgMSA3My44NTkzNzUgNTguNTYyNVoiIHN0eWxlPSJkaXNwbGF5OmlubGluZTtmaWxsOiNmNWZhZmY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiNlYmQyNGI7c3Ryb2tlLXdpZHRoOjE7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjEwO3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxO3BhaW50LW9yZGVyOnN0cm9rZSBmaWxsIG1hcmtlcnMiIHRyYW5zZm9ybT0icm90YXRlKC0zMCA3NSA3NSkiLz48L2c+PC9zdmc+);
+    }
+    100% {
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIj48ZyBzdHlsZT0iZGlzcGxheTppbmxpbmUiPjxwYXRoIGQ9Im03NSA0MC0xLjI1LTIwTDc1IDEwbDEuMjUgMTBaIiBzdHlsZT0iZGlzcGxheTppbmxpbmU7b3BhY2l0eToxO2ZpbGw6I2Y1ZmFmZjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6I2ViZDI0YjtzdHJva2Utd2lkdGg6MTtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6MTA7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0cm9rZS1vcGFjaXR5OjE7cGFpbnQtb3JkZXI6c3Ryb2tlIGZpbGwgbWFya2VycyIgdHJhbnNmb3JtPSJyb3RhdGUoLTM3LjUgNzUgNzUpIi8+PHBhdGggZD0ibTc1IDExMC0xLjI1IDIwTDc1IDE0MGwxLjI1LTEwek0xMjAgNzVsMjAtMS4yNUwxNTAgNzVsLTEwIDEuMjV6TTMwIDc1bC0yMC0xLjI1TDAgNzVsMTAgMS4yNVoiIHN0eWxlPSJkaXNwbGF5OmlubGluZTtmaWxsOiNmNWZhZmY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiNlYmQyNGI7c3Ryb2tlLXdpZHRoOjE7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjEwO3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxO3BhaW50LW9yZGVyOnN0cm9rZSBmaWxsIG1hcmtlcnMiIHRyYW5zZm9ybT0icm90YXRlKC0zNy41IDc1IDc1KSIvPjwvZz48L3N2Zz4=);
+    }
+}
+
+/* big click */
+/* not implemented yet but it's supposed to be flashier */
+@keyframes cursor_clickbig {
+    0% {
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIj48ZyBzdHlsZT0iZGlzcGxheTppbmxpbmUiPjxjaXJjbGUgY3g9Ijc1IiBjeT0iNzUiIHI9IjIuNSIgc3R5bGU9ImRpc3BsYXk6aW5saW5lO29wYWNpdHk6MTtmaWxsOiNmNWZhZmY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiNlYmQyNGI7c3Ryb2tlLXdpZHRoOjE7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjEwO3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxO3BhaW50LW9yZGVyOnN0cm9rZSBmaWxsIG1hcmtlcnMiLz48L2c+PC9zdmc+);
+    }
+    20% {
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIj48ZyBzdHlsZT0iZGlzcGxheTppbmxpbmUiPjxwYXRoIGQ9Im03NC45OTk2NDYgNDcuNDk5Mzg3LTIuMjkyNDAyIDI1LjIwOTEzMS0yNS4yMDc4NTcgMi4yOTE4MzYgMjUuMjA5MTMxIDIuMjkyNDAyIDIuMjkxODM2IDI1LjIwNzg1NCAyLjI5MjQwMi0yNS4yMDkxMjggMjUuMjA3ODU0LTIuMjkxODM2LTI1LjIwOTEyOC0yLjI5MjQwMnoiIHN0eWxlPSJkaXNwbGF5OmlubGluZTtmaWxsOiNmNWZhZmY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiNlYmQyNGI7c3Ryb2tlLXdpZHRoOjE7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjEwO3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxO3BhaW50LW9yZGVyOnN0cm9rZSBmaWxsIG1hcmtlcnMiIHRyYW5zZm9ybT0icm90YXRlKDMwIDc1IDc1KSIvPjwvZz48L3N2Zz4=);
+    }
+    40% {
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIj48ZyBzdHlsZT0iZGlzcGxheTppbmxpbmUiPjxwYXRoIGQ9Im03NSAzNy41LTEuNjc1NzgxIDI1LjExOTE0MWExMi41IDEyLjUgMCAwIDAtMTAuNjgxNjQxIDEwLjUzMTI1TDI3LjUgNzVsMzUuMTQyNTc4IDEuODQ5NjA5YTEyLjUgMTIuNSAwIDAgMCAxMC42ODE2NDEgMTAuNTMxMjVMNzUgMTEyLjVsMS42NzU3ODEtMjUuMTE5MTQxYTEyLjUgMTIuNSAwIDAgMCAxMC42ODE2NDEtMTAuNTMxMjVMMTIyLjUgNzVsLTM1LjEzNjcxOS0xLjg0OTYwOWExMi41IDEyLjUgMCAwIDAtMTAuNjg5NDUzLTEwLjUzNTE1N1ptMS44Nzg5MDYgMjguMTkxNDA2YTkuNSA5LjUgMCAwIDEgNy40MDIzNDQgNy4yOTY4NzVsLTYuOTM5NDUzLS4zNjUyMzR6bS0zLjc1OTc2NS4wMTk1My0uNDYwOTM4IDYuOTEyMTA5LTYuOTE0MDYyLjM2MzI4MWE5LjUgOS41IDAgMCAxIDcuMzc1LTcuMjc1Mzl6bS03LjM3NSAxMS4zMDI3MzQgNi45MTQwNjIuMzYzMjgxLjQ2MDkzOCA2LjkxMjEwOWE5LjUgOS41IDAgMCAxLTcuMzc1LTcuMjc1Mzl6bTE4LjUxMTcxOCAwYTkuNSA5LjUgMCAwIDEtNy4zNzUgNy4yNzUzOWwuNDYwOTM4LTYuOTEyMTA5eiIgc3R5bGU9ImRpc3BsYXk6aW5saW5lO2ZpbGw6I2Y1ZmFmZjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6I2ViZDI0YjtzdHJva2Utd2lkdGg6MTtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6MTA7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0cm9rZS1vcGFjaXR5OjE7cGFpbnQtb3JkZXI6c3Ryb2tlIGZpbGwgbWFya2VycyIvPjwvZz48L3N2Zz4=);
+    }
+    60% {
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIj48ZyBzdHlsZT0iZGlzcGxheTppbmxpbmUiPjxwYXRoIGQ9Im02NCAzMy45NDcyNjYgNS4zMzk4NDQgMjcuMTc5Njg3YTE1IDE1IDAgMCAwLTkuMjI2NTYzIDE1LjY5NTMxM0wyNC4yODkwNjIgODguNTg3ODkxbDM2LjkwODIwNC03LjcyNDYxYTE1IDE1IDAgMCAwIDE1LjgzNzg5IDguOTgyNDIyTDg2IDExNi4wNTI3M2wtNS4zMzc4OTEtMjcuMTY3OTY0YTE1IDE1IDAgMCAwIDkuMjI0NjEtMTUuNzA3MDMybDM1LjgyNDIyMS0xMS43NjU2MjUtMzYuOTA4MjA2IDcuNzI0NjFhMTUgMTUgMCAwIDAtMTUuODM3ODktOC45ODI0MjJ6bTExLjY3OTY4OCAyOC4wNzAzMTJhMTMgMTMgMCAwIDEgMTEuMTEzMjgxIDcuNTM5MDYzbC01LjE5NTMxMyAxLjA4Nzg5LTUuODI4MTI1IDMuMjM0Mzc1LjE3MzgyOC01LjAxMzY3Mi0yLjMyMjI2NS02Ljc5MTAxNWExMyAxMyAwIDAgMSAyLjA1ODU5NC0uMDU2NjR6bS01Ljk0NzI2NiAxLjA5OTYxIDEuMzgyODEyIDcuMDQxMDE1IDIuNjU4MjA0IDQuMjU1ODU5LTYuNjY0MDYzLjExMTMyOS01LjA0Mjk2OSAxLjY1NjI1YTEzIDEzIDAgMCAxIDcuNjY2MDE2LTEzLjA2NDQ1M3ptMTguMjEwOTM3IDEwLjY5NzI2NWExMyAxMyAwIDAgMS03LjY3MzgyOCAxMy4wNzAzMTNsLTEuMzg0NzY1LTcuMDQyOTY5LTIuNjU4MjA0LTQuMjU1ODU5IDYuNjY0MDYzLS4xMTEzMjl6bS0xMy43MTI4OSAyLjMwNjY0MS0uMTczODI4IDUuMDEzNjcyIDIuMzIyMjY1IDYuNzkxMDE1YTEzIDEzIDAgMCAxLTEzLjE3MTg3NS03LjQ4MjQyMmw1LjE5NTMxMy0xLjA4Nzg5eiIgc3R5bGU9ImRpc3BsYXk6aW5saW5lO2ZpbGw6I2Y1ZmFmZjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6I2ViZDI0YjtzdHJva2Utd2lkdGg6MTtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6MTA7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0cm9rZS1vcGFjaXR5OjE7cGFpbnQtb3JkZXI6c3Ryb2tlIGZpbGwgbWFya2VycyIvPjwvZz48L3N2Zz4=);
+    }
+    80% {
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIj48ZyBzdHlsZT0iZGlzcGxheTppbmxpbmUiPjxwYXRoIGQ9Im03NSAyNS0yLjUgMjUuODgyODEyIDEuMTg1NTQ3IDYuNjk1MzEyQTE3LjUgMTcuNSAwIDAgMCA1OS44NDM3NSA2Ni4yNWExNy41IDE3LjUgMCAwIDAtMi4zMDA3OCA4LjU4OTg0M0w0My41IDcyLjQ5OTk5OWwtMjcuNSAyLjVMNDMuNTAwMDAxIDc3LjVsMTQuMDM1MTU2LTIuMzM5ODQ0YTE3LjUgMTcuNSAwIDAgMCA4LjcxNDg0NCAxNC45OTYwOTQgMTcuNSAxNy41IDAgMCAwIDcuNDMzNTkzIDIuMjcxNDg0TDcyLjUgOTkuMTE3MTg3IDc1IDEyNWwyLjUtMjUuODgyODEzLTEuMTg1NTQ3LTYuNjk1MzEyYTE3LjUgMTcuNSAwIDAgMCAxMy44NDE3OTgtOC42NzE4NzYgMTcuNSAxNy41IDAgMCAwIDIuMzM3ODktOC41ODM5ODNMMTA2LjUgNzcuNDk5OTk5IDEzNCA3NWwtMjcuNS0yLjUtMTQuMDAzOTA3IDIuMzMzOTg1QTE3LjUgMTcuNSAwIDAgMCA4My43NSA1OS44NDM3NDlhMTcuNSAxNy41IDAgMCAwLTcuNDMzNTk0LTIuMjcxNDg0TDc3LjUgNTAuODgyODEzWm0tMS4xNDA2MjUgMzMuNTYyNUw3NSA2NWwxLjE0MDYyNi02LjQzNTU0OGExNi41IDE2LjUgMCAwIDEgNy4xMDkzNzUgMi4xNDY0ODVBMTYuNSAxNi41IDAgMCAxIDg5LjI4OTA2MyA4My4yNWExNi41IDE2LjUgMCAwIDEtMTMuMTQ4NDM4IDguMTg3NDk5TDc1IDg0Ljk5OTk5OWwtMS4xNDA2MjUgNi40MzU1NDhBMTYuNSAxNi41IDAgMCAxIDY2Ljc1IDg5LjI4OTA2MmExNi41IDE2LjUgMCAwIDEtNi4wMzkwNjItMjIuNTM5MDYzQTE2LjUgMTYuNSAwIDAgMSA3My44NTkzNzUgNTguNTYyNVoiIHN0eWxlPSJkaXNwbGF5OmlubGluZTtmaWxsOiNmNWZhZmY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiNlYmQyNGI7c3Ryb2tlLXdpZHRoOjE7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjEwO3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxO3BhaW50LW9yZGVyOnN0cm9rZSBmaWxsIG1hcmtlcnMiIHRyYW5zZm9ybT0icm90YXRlKC0zMCA3NSA3NSkiLz48L2c+PC9zdmc+);
+    }
+    100% {
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIj48ZyBzdHlsZT0iZGlzcGxheTppbmxpbmUiPjxwYXRoIGQ9Im03NSA0MC0xLjI1LTIwTDc1IDEwbDEuMjUgMTBaIiBzdHlsZT0iZGlzcGxheTppbmxpbmU7b3BhY2l0eToxO2ZpbGw6I2Y1ZmFmZjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6I2ViZDI0YjtzdHJva2Utd2lkdGg6MTtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6MTA7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0cm9rZS1vcGFjaXR5OjE7cGFpbnQtb3JkZXI6c3Ryb2tlIGZpbGwgbWFya2VycyIgdHJhbnNmb3JtPSJyb3RhdGUoLTM3LjUgNzUgNzUpIi8+PHBhdGggZD0ibTc1IDExMC0xLjI1IDIwTDc1IDE0MGwxLjI1LTEwek0xMjAgNzVsMjAtMS4yNUwxNTAgNzVsLTEwIDEuMjV6TTMwIDc1bC0yMC0xLjI1TDAgNzVsMTAgMS4yNVoiIHN0eWxlPSJkaXNwbGF5OmlubGluZTtmaWxsOiNmNWZhZmY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiNlYmQyNGI7c3Ryb2tlLXdpZHRoOjE7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjEwO3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxO3BhaW50LW9yZGVyOnN0cm9rZSBmaWxsIG1hcmtlcnMiIHRyYW5zZm9ybT0icm90YXRlKC0zNy41IDc1IDc1KSIvPjwvZz48L3N2Zz4=);
+    }
+}
+
+/* cursor trail */
+@keyframes cursor_trail {
+    0% {
+        width: var(--cursor_sizeDust);
+        height: var(--cursor_sizeDust);
+    }
+    100% {
+        width: 0px;
+        height: 0px;
+    }
+}
+
+/* cursor dust */
+@keyframes cursor_sprinkle {
+    100% {
+        opacity: 0;
+        width: 0px;
+        height: 0px;
+    }
+}
+    </style>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        html {
+            font-family: "RocknRoll One", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            font-size: 16px;
+            color: #f3f3fc;
+        }
+
+        body {
+            background-color: #090912;
+        }
+
+        body>section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        button {
+            font-family: "RocknRoll One", sans-serif;
+            width: fit-content;
+            margin: 8px 0;
+            padding: 2px 8px;
+            background-color: #f3f3fc;
+            border: 1px solid #090912;
+            border-radius: 4px;
+        }
+
+        button:hover:active {
+            background-color: #51a2fc;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 8px;
+            color: #f3f3fc;
+            font-size: 12px;
+            opacity: 0.3;
+            overflow: hidden;
+            transition-duration: 500ms;
+            z-index: 99;
+        }
+
+        footer:hover {
+            opacity: 0.6;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        a:hover:active {
+            color: #51a2fc;
+        }
+
+        textarea {
+            background-color: #f3f3fc;
+            border-radius: 8px;
+            overflow: scroll;
+            resize: vertical;
+        }
+
+        textarea:not(#htmlcode) {
+            height: 25vh;
+        }
+
+        .br {
+            margin-bottom: 16px;
+        }
+
+        @media only screen and not (max-width: 1079px) {
+            textarea {
+                width: 75vw;
+            }
+
+            footer {
+                right: 8px;
+            }
+        }
+
+        @media only screen and (max-width: 1079px) {
+            textarea {
+                width: 100vw;
+            }
+
+            footer {
+                width: 100vw;
+                text-align: center;
+            }
+        }
+    </style>
+
+    <!-- scripts -->
+    <script id="javascript">
+// generate html elements
+function generateElement(html) {
+    const template = document.createElement("template");
+    template.innerHTML = html.trim();
+    return template.content.children[0];
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+    // stuff from :root
+    const cDimension = parseInt(window.getComputedStyle(document.body).getPropertyValue("--cursor_sizeClick"));
+    const clDimension = parseInt(window.getComputedStyle(document.body).getPropertyValue("--cursor_sizeClickBig"));
+    const dDimension = parseInt(window.getComputedStyle(document.body).getPropertyValue("--cursor_sizeDust"));
+
+    // what it works off on
+    document.body.append(generateElement(`
+<div id="asset_cursor">
+    <div id="cursor_drag"></div>
+    <div id="cursor_click"></div>
+</div>
+`));
+
+    let isDown = false; // mouse down flag
+    let currentTap = undefined; // tapping cooldown; only one spark at a time :)
+    let scrollOffsetX = 0; // scrolling offset for the x-position
+    let scrollOffsetY = 0; // scrolling offset for the y-position
+
+    const ClickDiv = document.getElementById("cursor_click"); // click element
+    const DragDiv = document.getElementById("cursor_drag"); // drag element
+
+    // initiate cursor animation
+    function mtDown(downX, downY, target) {
+        isDown = true;
+
+        // not animating
+        if (!ClickDiv.classList.contains("ed") && !ClickDiv.classList.contains("edbig")) {
+            let targetTag = target.tagName.toLowerCase().trim();
+
+            if (targetTag == "a" || targetTag == "button" || target.classList.contains("cursor_big")) { // big click
+                ClickDiv.classList.add("edbig");
+                ClickDiv.style.top = `${downY - (clDimension / 2) - scrollOffsetY}px`;
+                ClickDiv.style.left = `${downX - (clDimension / 2) - scrollOffsetX}px`;
+                clearTimeout(currentTap);
+            }
+            else { // regular click
+                ClickDiv.classList.add("ed");
+                ClickDiv.style.top = `${downY - (cDimension / 2) - scrollOffsetY}px`;
+                ClickDiv.style.left = `${downX - (cDimension / 2) - scrollOffsetX}px`;
+                clearTimeout(currentTap);
+            }
+
+            // end animation and remove animation class
+            currentTap = setTimeout(() => {
+                ClickDiv.classList.remove("ed");
+                ClickDiv.classList.remove("edbig");
+            }, 250);
+        };
+    };
+
+    // move cursor animation
+    function mtMove(currentX, currentY) {
+        if (isDown) {
+            const dragtrail = generateElement(`
+<div class="cursor_dragtrail" style="top: ${currentY - (dDimension / 2) - scrollOffsetY}px; left: ${currentX - (dDimension / 2) - scrollOffsetX}px"></div>
+`); // trail
+
+            let dragdustDimensions = Math.floor(Math.random() * dDimension * 1.5);
+            const dragdust = generateElement(`
+<div class="cursor_dragdust" style="top: ${currentY - (dragdustDimensions * 1.5) + Math.floor(Math.random() * dragdustDimensions * 2) - scrollOffsetY}px; left: ${currentX - (dragdustDimensions * 1.5) + Math.floor(Math.random() * dragdustDimensions * 2) - scrollOffsetX}px; width: ${dragdustDimensions}px; height: ${dragdustDimensions}px; opacity: ${Math.random()};">
+`); // dust
+
+            DragDiv.append(dragtrail);
+            DragDiv.append(dragdust);
+
+            // this is so the trail shrinks properly
+            dragtrail.animate([
+                {},
+                {
+                    top: `${currentY - scrollOffsetY}px`,
+                    left: `${currentX - scrollOffsetX}px`
+                },
+            ], {
+                duration: 500,
+                easing: "linear"
+            });
+
+            setTimeout(() => {
+                dragtrail.remove();
+                dragdust.remove();
+            }, 500);
+        };
+    };
+
+    // deactivate cursor animation
+    function mtUp() {
+        isDown = false;
+    };
+
+    document.addEventListener("mousedown", (event) => {
+        mtDown(event.pageX, event.pageY, event.target);
+    });
+    document.addEventListener("mousemove", (event) => {
+        mtMove(event.pageX, event.pageY);
+    });
+    document.addEventListener("mouseup", mtUp);
+
+    // mobile
+    document.addEventListener("touchstart", (event) => {
+        mtDown(event.targetTouches[0].pageX, event.targetTouches[0].pageY, event.target);
+    });
+    document.addEventListener("touchmove", (event) => {
+        mtMove(event.targetTouches[0].pageX, event.targetTouches[0].pageY);
+    });
+    document.addEventListener("touchend", mtUp);
+    document.addEventListener("touchcancel", mtUp);
+
+    // scroll support (offset)
+    document.addEventListener("scroll", () => {
+        scrollOffsetX = window.scrollX;
+        scrollOffsetY = window.scrollY;
+    });
+});
+    </script>
+
+    <script>
+        function copyStep(n = 0) {
+            let clipboard = "";
+
+            if (n == 1) clipboard = document.getElementById("css").innerHTML;
+            else if (n == 2) clipboard = document.getElementById("javascript").innerHTML;
+
+            navigator.clipboard.writeText(clipboard);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("csscode").innerHTML = document.getElementById("css").innerHTML.trim();
+            document.getElementById("javascriptcode").innerHTML = document.getElementById("javascript").innerHTML.trim();
+
+            window.scrollTo(0, 0);
+            document.getElementById("csscode").scrollTo(0, 0);
+            document.getElementById("javascriptcode").scrollTo(0, 0);
+        });
+    </script>
+
+    <noscript>uh oh, your browser does not support javascript :(</noscript>
+</head>
+
+<body>
+    <section>
+        <h1>drgl-cursor</h1>
+        
+        <p class="br">click/tap and drag around!</p>
+        <p>how to use:</p>
+        <ol class="br">
+            <li class="br">
+                <p>in <span><</span>head<span>></span>, copy and paste the following into a <span><</span>style<span>></span> tag (or into a separate .css file):</p>
+                <div style="display: flex; flex-direction: column;">
+                    <textarea id="csscode" readonly></textarea>
+                    <button style="margin-left: 8px" onclick="copyStep(1)">copy</button>
+                </div>
+            </li>
+            <li>
+                <p>in <span><</span>head<span>></span>, copy and paste the following into a <span><</span>script<span>></span> tag (or into a separate .js file):</p>
+                <div style="display: flex; flex-direction: column;">
+                    <textarea id="javascriptcode" readonly></textarea>
+                    <button style="margin-left: 8px" onclick="copyStep(2)">copy</button>
+                </div>
+            </li>
+        </ol>
+        <p>enjoy!</p>
+    </section>
+    <section style="justify-content: flex-end;">
+        <p>i miss dragalia lost</p>
+    </section>
+
+    <footer class="cursor_big">made with love and pure hyperfixation by <a href="https://bladewyrm.dev/" target="_blank" rel="noopener noreferrer"><b>kyu(ren)</b></a> 💙🩶</footer>
+</body>
+
+</html>
