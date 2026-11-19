@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const clDimension = parseInt(window.getComputedStyle(document.body).getPropertyValue("--cursor_sizeClickBig"));
     const dDimension = parseInt(window.getComputedStyle(document.body).getPropertyValue("--cursor_sizeDust"));
 
-    // what it works off on
+    // element where it works
     document.body.append(generateElement(`
 <div id="asset_cursor">
     <div id="cursor_drag"></div>

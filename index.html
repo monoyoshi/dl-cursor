@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <!-- metadata -->
+        <meta charset="utf-8">
+        <meta name="description" content="mimic of the cursor from dragalia lost">
+        <meta name="keywords" content="cursor, dragalia lost, html, css, javascript">
+        <meta name="author" content="kyu(ren)">
+        <meta name="viewport" content="width=device-width, height=device.height, initial-scale=1.0">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>dragalia lost cursor mimic</title>
+        <title>dragalia lost cursor mimic | monoyoshi.github.io</title>
+        <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIj48ZyBzdHlsZT0iZGlzcGxheTppbmxpbmUiPjxwYXRoIGQ9Im02NCAzMy45NDcyNjYgNS4zMzk4NDQgMjcuMTc5Njg3YTE1IDE1IDAgMCAwLTkuMjI2NTYzIDE1LjY5NTMxM0wyNC4yODkwNjIgODguNTg3ODkxbDM2LjkwODIwNC03LjcyNDYxYTE1IDE1IDAgMCAwIDE1LjgzNzg5IDguOTgyNDIyTDg2IDExNi4wNTI3M2wtNS4zMzc4OTEtMjcuMTY3OTY0YTE1IDE1IDAgMCAwIDkuMjI0NjEtMTUuNzA3MDMybDM1LjgyNDIyMS0xMS43NjU2MjUtMzYuOTA4MjA2IDcuNzI0NjFhMTUgMTUgMCAwIDAtMTUuODM3ODktOC45ODI0MjJ6bTExLjY3OTY4OCAyOC4wNzAzMTJhMTMgMTMgMCAwIDEgMTEuMTEzMjgxIDcuNTM5MDYzbC01LjE5NTMxMyAxLjA4Nzg5LTUuODI4MTI1IDMuMjM0Mzc1LjE3MzgyOC01LjAxMzY3Mi0yLjMyMjI2NS02Ljc5MTAxNWExMyAxMyAwIDAgMSAyLjA1ODU5NC0uMDU2NjR6bS01Ljk0NzI2NiAxLjA5OTYxIDEuMzgyODEyIDcuMDQxMDE1IDIuNjU4MjA0IDQuMjU1ODU5LTYuNjY0MDYzLjExMTMyOS01LjA0Mjk2OSAxLjY1NjI1YTEzIDEzIDAgMCAxIDcuNjY2MDE2LTEzLjA2NDQ1M3ptMTguMjEwOTM3IDEwLjY5NzI2NWExMyAxMyAwIDAgMS03LjY3MzgyOCAxMy4wNzAzMTNsLTEuMzg0NzY1LTcuMDQyOTY5LTIuNjU4MjA0LTQuMjU1ODU5IDYuNjY0MDYzLS4xMTEzMjl6bS0xMy43MTI4OSAyLjMwNjY0MS0uMTczODI4IDUuMDEzNjcyIDIuMzIyMjY1IDYuNzkxMDE1YTEzIDEzIDAgMCAxLTEzLjE3MTg3NS03LjQ4MjQyMmw1LjE5NTMxMy0xLjA4Nzg5eiIgc3R5bGU9ImRpc3BsYXk6aW5saW5lO2ZpbGw6I2Y1ZmFmZjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6I2ViZDI0YjtzdHJva2Utd2lkdGg6MTtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6MTA7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0cm9rZS1vcGFjaXR5OjE7cGFpbnQtb3JkZXI6c3Ryb2tlIGZpbGwgbWFya2VycyIvPjwvZz48L3N2Zz4=">
 
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIj48ZyBzdHlsZT0iZGlzcGxheTppbmxpbmUiPjxwYXRoIGQ9Im02NCAzMy45NDcyNjYgNS4zMzk4NDQgMjcuMTc5Njg3YTE1IDE1IDAgMCAwLTkuMjI2NTYzIDE1LjY5NTMxM0wyNC4yODkwNjIgODguNTg3ODkxbDM2LjkwODIwNC03LjcyNDYxYTE1IDE1IDAgMCAwIDE1LjgzNzg5IDguOTgyNDIyTDg2IDExNi4wNTI3M2wtNS4zMzc4OTEtMjcuMTY3OTY0YTE1IDE1IDAgMCAwIDkuMjI0NjEtMTUuNzA3MDMybDM1LjgyNDIyMS0xMS43NjU2MjUtMzYuOTA4MjA2IDcuNzI0NjFhMTUgMTUgMCAwIDAtMTUuODM3ODktOC45ODI0MjJ6bTExLjY3OTY4OCAyOC4wNzAzMTJhMTMgMTMgMCAwIDEgMTEuMTEzMjgxIDcuNTM5MDYzbC01LjE5NTMxMyAxLjA4Nzg5LTUuODI4MTI1IDMuMjM0Mzc1LjE3MzgyOC01LjAxMzY3Mi0yLjMyMjI2NS02Ljc5MTAxNWExMyAxMyAwIDAgMSAyLjA1ODU5NC0uMDU2NjR6bS01Ljk0NzI2NiAxLjA5OTYxIDEuMzgyODEyIDcuMDQxMDE1IDIuNjU4MjA0IDQuMjU1ODU5LTYuNjY0MDYzLjExMTMyOS01LjA0Mjk2OSAxLjY1NjI1YTEzIDEzIDAgMCAxIDcuNjY2MDE2LTEzLjA2NDQ1M3ptMTguMjEwOTM3IDEwLjY5NzI2NWExMyAxMyAwIDAgMS03LjY3MzgyOCAxMy4wNzAzMTNsLTEuMzg0NzY1LTcuMDQyOTY5LTIuNjU4MjA0LTQuMjU1ODU5IDYuNjY0MDYzLS4xMTEzMjl6bS0xMy43MTI4OSAyLjMwNjY0MS0uMTczODI4IDUuMDEzNjcyIDIuMzIyMjY1IDYuNzkxMDE1YTEzIDEzIDAgMCAxLTEzLjE3MTg3NS03LjQ4MjQyMmw1LjE5NTMxMy0xLjA4Nzg5eiIgc3R5bGU9ImRpc3BsYXk6aW5saW5lO2ZpbGw6I2Y1ZmFmZjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6I2ViZDI0YjtzdHJva2Utd2lkdGg6MTtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6MTA7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0cm9rZS1vcGFjaXR5OjE7cGFpbnQtb3JkZXI6c3Ryb2tlIGZpbGwgbWFya2VycyIvPjwvZz48L3N2Zz4=">
+        <!-- stylesheets -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=RocknRoll+One&family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
 
-    <!-- stylesheets -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=RocknRoll+One&family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
-
-    <style id="css">
+        <style id="css">
 :root {
     --cursor_sizeClick: 160px; /* size of regular click */
     --cursor_sizeClickBig: 240px; /* size of big click */
@@ -89,7 +92,7 @@
 }
 
 /* big click */
-/* not implemented yet but it's supposed to be flashier */
+/* not fully implemented yet (I still have to draw new graphics, basically), but it's supposed to be flashier */
 @keyframes cursor_clickbig {
     0% {
         background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIj48ZyBzdHlsZT0iZGlzcGxheTppbmxpbmUiPjxjaXJjbGUgY3g9Ijc1IiBjeT0iNzUiIHI9IjIuNSIgc3R5bGU9ImRpc3BsYXk6aW5saW5lO29wYWNpdHk6MTtmaWxsOiNmNWZhZmY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiNlYmQyNGI7c3Ryb2tlLXdpZHRoOjE7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjEwO3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxO3BhaW50LW9yZGVyOnN0cm9rZSBmaWxsIG1hcmtlcnMiLz48L2c+PC9zdmc+);
@@ -131,113 +134,112 @@
         height: 0px;
     }
 }
-    </style>
+        </style>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            scroll-behavior: smooth;
-        }
+        <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+                scroll-behavior: smooth;
+            }
 
-        html {
-            font-family: "RocknRoll One", sans-serif;
-            font-weight: 400;
-            font-style: normal;
-            font-size: 16px;
-            color: #f3f3fc;
-        }
+            html, body {
+                height: 100vh;
+                width: 100vw;
+                font-family: "RocknRoll One", sans-serif;
+                font-weight: 400;
+                font-style: normal;
+            }
 
-        body {
-            background-color: #090912;
-        }
+            article {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                height: 100%;
+                width: 100%;
+                padding: 8px;
+                background-color: #090912;
+                color: #f3f3fc;
+                overflow: scroll;
+                user-select: none;
+            }
 
-        body>section {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            width: 100vw;
-        }
+            button {
+                font-family: "RocknRoll One", sans-serif;
+                font-weight: 400;
+                font-style: normal;
+                width: fit-content;
+                margin: 8px 0;
+                padding: 2px 8px;
+                background-color: #f3f3fc;
+                border: 1px solid #090912;
+                border-radius: 4px;
+            }
 
-        button {
-            font-family: "RocknRoll One", sans-serif;
-            width: fit-content;
-            margin: 8px 0;
-            padding: 2px 8px;
-            background-color: #f3f3fc;
-            border: 1px solid #090912;
-            border-radius: 4px;
-        }
+            button:hover:active {
+                background-color: #3773b9;
+            }
 
-        button:hover:active {
-            background-color: #51a2fc;
-        }
+            button.disable {
+                pointer-events: none;
+            }
 
-        footer {
-            position: fixed;
-            bottom: 8px;
-            color: #f3f3fc;
-            font-size: 12px;
-            opacity: 0.3;
-            overflow: hidden;
-            transition-duration: 500ms;
-            z-index: 99;
-        }
+            #csstext, #javascripttext {
+                opacity: 0;
+            }
 
-        footer:hover {
-            opacity: 0.6;
-        }
-
-        a {
-            color: inherit;
-        }
-
-        a:hover:active {
-            color: #51a2fc;
-        }
-
-        textarea {
-            background-color: #f3f3fc;
-            border-radius: 8px;
-            overflow: scroll;
-            resize: vertical;
-        }
-
-        textarea:not(#htmlcode) {
-            height: 25vh;
-        }
-
-        .br {
-            margin-bottom: 16px;
-        }
-
-        @media only screen and not (max-width: 1079px) {
-            textarea {
-                width: 75vw;
+            .pop {
+                animation: pop 2000ms;
             }
 
             footer {
+                position: fixed;
                 right: 8px;
+                bottom: 8px;
+                font-size: 12px;
+                opacity: 0.4;
+                user-select: none;
+                transition-duration: 250ms;
+                
+                &:hover {
+                    opacity: 0.9;
+                }
             }
-        }
 
-        @media only screen and (max-width: 1079px) {
+            a {
+                text-decoration: none;
+            }
+
             textarea {
-                width: 100vw;
+                width: 100%;
+                background-color: #f3f3fc;
+                border-radius: 8px;
+                overflow: scroll;
+                resize: vertical;
+
+                &:not(#htmlcode) {
+                    height: 160px;
+                }
             }
 
-            footer {
-                width: 100vw;
-                text-align: center;
+            .br {
+                margin-bottom: 16px;
             }
-        }
-    </style>
 
-    <!-- scripts -->
-    <script id="javascript">
+            @keyframes pop {
+                0%, 25% {
+                    opacity: 1;
+                }
+
+                100% {
+                    opacity: 0;
+                }
+            }
+        </style>
+
+        <!-- scripts -->
+        <script id="javascript">
 // generate html elements
 function generateElement(html) {
     const template = document.createElement("template");
@@ -251,7 +253,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const clDimension = parseInt(window.getComputedStyle(document.body).getPropertyValue("--cursor_sizeClickBig"));
     const dDimension = parseInt(window.getComputedStyle(document.body).getPropertyValue("--cursor_sizeDust"));
 
-    // what it works off on
+        // element where it works
     document.body.append(generateElement(`
 <div id="asset_cursor">
     <div id="cursor_drag"></div>
@@ -359,60 +361,78 @@ document.addEventListener("DOMContentLoaded", () => {
         scrollOffsetY = window.scrollY;
     });
 });
-    </script>
+        </script>
 
-    <script>
-        function copyStep(n = 0) {
-            let clipboard = "";
+        <script>
+            function copyStep(n = 0) {
+                let clipboard = "";
 
-            if (n == 1) clipboard = document.getElementById("css").innerHTML;
-            else if (n == 2) clipboard = document.getElementById("javascript").innerHTML;
+                if (n == 1) {
+                    clipboard = document.getElementById("css").innerHTML;
+                    document.getElementById("csstext").classList.add("pop");
+                    document.getElementById("cssbutton").classList.add("disable");
+                    setTimeout(() => {
+                        document.getElementById("csstext").classList.remove("pop");
+                        document.getElementById("cssbutton").classList.remove("disable");
+                    }, 1000);
+                }
+                else if (n == 2) {
+                    clipboard = document.getElementById("javascript").innerHTML;
+                    document.getElementById("javascripttext").classList.add("pop");
+                    document.getElementById("javascriptbutton").classList.add("disable");
+                    setTimeout(() => {
+                        document.getElementById("javascripttext").classList.remove("pop");
+                        document.getElementById("javascriptbutton").classList.remove("disable");
+                    }, 1000);
+                }
 
-            navigator.clipboard.writeText(clipboard);
-        }
+                navigator.clipboard.writeText(clipboard);
+            }
 
-        document.addEventListener("DOMContentLoaded", () => {
-            document.getElementById("csscode").innerHTML = document.getElementById("css").innerHTML.trim();
-            document.getElementById("javascriptcode").innerHTML = document.getElementById("javascript").innerHTML.trim();
+            document.addEventListener("DOMContentLoaded", () => {
+                document.getElementById("csscode").innerHTML = document.getElementById("css").innerHTML.trim();
+                document.getElementById("javascriptcode").innerHTML = document.getElementById("javascript").innerHTML.trim();
 
-            window.scrollTo(0, 0);
-            document.getElementById("csscode").scrollTo(0, 0);
-            document.getElementById("javascriptcode").scrollTo(0, 0);
-        });
-    </script>
+                window.scrollTo(0, 0);
+                document.getElementById("csscode").scrollTo(0, 0);
+                document.getElementById("javascriptcode").scrollTo(0, 0);
+            });
+        </script>
+    </head>
+    <body>
+        <noscript><p class="noscript">your browser does not support javascript :(</p></noscript>
 
-    <noscript>uh oh, your browser does not support javascript :(</noscript>
-</head>
+        <article>
+            <h1 style="margin: 64px 0 4px;">dragalia lost cursor mimic</h1>
+            
+            <p class="br">click/tap and drag!</p>
+            <p class="br">how to use:</p>
+            <ol class="br">
+                <li class="br">
+                    <p>in <code><span><</span>head<span>></span></code>, copy and paste the following into a <code><span><</span>style<span>></span></code> tag (or into a separate <code>.css</code> file):</p>
+                    <div style="display: flex; flex-direction: column;">
+                        <textarea id="csscode" readonly></textarea>
+                        <div style="display: flex; align-items: baseline;">
+                            <button id="cssbutton" style="margin-left: 8px" onclick="copyStep(1)">copy</button>
+                            <div id="csstext" style="margin-left: 8px">copied!</div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <p>in <code><span><</span>head<span>></span></code>, copy and paste the following into a <code><span><</span>script<span>></span></code> tag (or into a separate <code>.js</code> file):</p>
+                    <div style="display: flex; flex-direction: column;">
+                        <textarea id="javascriptcode" readonly></textarea>
+                        <div style="display: flex; align-items: baseline;">
+                            <button id="javascriptbutton" style="margin-left: 8px" onclick="copyStep(2)">copy</button>
+                            <div id="javascripttext" style="margin-left: 8px">copied!</div>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+            <p style="margin-bottom: 100vh">enjoy!</p>
+            <p>i miss dragalia lost</p>
+        </article>
 
-<body>
-    <section>
-        <h1>drgl-cursor</h1>
-        
-        <p class="br">click/tap and drag around!</p>
-        <p>how to use:</p>
-        <ol class="br">
-            <li class="br">
-                <p>in <span><</span>head<span>></span>, copy and paste the following into a <span><</span>style<span>></span> tag (or into a separate .css file):</p>
-                <div style="display: flex; flex-direction: column;">
-                    <textarea id="csscode" readonly></textarea>
-                    <button style="margin-left: 8px" onclick="copyStep(1)">copy</button>
-                </div>
-            </li>
-            <li>
-                <p>in <span><</span>head<span>></span>, copy and paste the following into a <span><</span>script<span>></span> tag (or into a separate .js file):</p>
-                <div style="display: flex; flex-direction: column;">
-                    <textarea id="javascriptcode" readonly></textarea>
-                    <button style="margin-left: 8px" onclick="copyStep(2)">copy</button>
-                </div>
-            </li>
-        </ol>
-        <p>enjoy!</p>
-    </section>
-    <section style="justify-content: flex-end;">
-        <p>i miss dragalia lost</p>
-    </section>
-
-    <footer class="cursor_big">made with love and pure hyperfixation by <a href="https://bladewyrm.dev/" target="_blank" rel="noopener noreferrer"><b>kyu(ren)</b></a> 💙🩶</footer>
-</body>
-
+        <footer><a href="https://bladewyrm.dev" target="_blank" rel="noopener noreferrer" title="my portfolio :)">🐉🗡️💙🩶</a></footer>
+    </body>
 </html>
